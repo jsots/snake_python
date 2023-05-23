@@ -15,6 +15,7 @@ food = snake.copy()
 food.center = get_random_position()
 screen = pg.display.set_mode([WINDOW] * 2)
 clock = pg.time.Clock()
+dirs = {pg.K_w: 1, pg.K_s: 1, pg.K_a: 1, pg.K_d: 1, pg.K_UP: 1, pg.K_DOWN: 1, pg.K_LEFT: 1, pg.K_RIGHT: 1} # this defines where it is acceptible to move. Then, we can use this later to define what is unacceptible. Specifically, moving backwards or "into itself". 
 
 while True:
     for event in pg.event.get():
@@ -23,12 +24,16 @@ while True:
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_w or event.key == pg.K_UP:
                 snake_dir = (0, -TILE_SIZE)
+                dirs = {pg.K_w: 1, pg.K_s: 0, pg.K_a: 1, pg.K_d: 1, pg.K_UP: 1, pg.K_DOWN: 0, pg.K_LEFT: 1, pg.K_RIGHT: 1}
             if event.key == pg.K_s or event.key == pg.K_DOWN:
                 snake_dir = (0, TILE_SIZE)
+                dirs = {pg.K_w: 0, pg.K_s: 1, pg.K_a: 1, pg.K_d: 1, pg.K_UP: 0, pg.K_DOWN: 1, pg.K_LEFT: 1, pg.K_RIGHT: 1}
             if event.key == pg.K_a or event.key == pg.K_LEFT:
                 snake_dir = (-TILE_SIZE, 0)
+                dirs = {pg.K_w: 1, pg.K_s: 1, pg.K_a: 1, pg.K_d: 0, pg.K_UP: 1, pg.K_DOWN: 1, pg.K_LEFT: 1, pg.K_RIGHT: 0}
             if event.key == pg.K_d or event.key == pg.K_RIGHT:
                 snake_dir = (TILE_SIZE, 0)
+                dirs = {pg.K_w: 1, pg.K_s: 1, pg.K_a: 0, pg.K_d: 1, pg.K_UP: 1, pg.K_DOWN: 1, pg.K_LEFT: 0, pg.K_RIGHT: 1}
     screen.fill('black')
     # Check borders - make sure the player stays in bounds or else the game ends! Also, add something to prevent self-easting.
     self_eating = pg.Rect.collidelist(snake, segments[:-1]) != -1
