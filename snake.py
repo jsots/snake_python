@@ -10,6 +10,7 @@ snake.center = get_random_position()
 length = 1
 segments = [snake.copy()]
 snake_dir = (0,0)
+time, time_step = 0, 110
 screen = pg.display.set_mode([WINDOW] * 2)
 clock = pg.time.Clock()
 
@@ -29,9 +30,12 @@ while True:
     screen.fill('black')
     # Draw snake below
     [pg.draw.rect(screen, 'magenta', segment) for segment in segments]
-    # Move snake and its segments. 
-    snake.move_ip(snake_dir)
-    segments.append(snake.copy())
-    segments = segments[-length:]
+    # Move snake and its segments. Then, control the speed by using timestep.
+    time_now = pg.time.get_ticks()
+    if time_now - time > time_step:
+        time = time_now 
+        snake.move_ip(snake_dir)
+        segments.append(snake.copy())
+        segments = segments[-length:]
     pg.display.flip()
     clock.tick(60)
