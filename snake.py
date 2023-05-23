@@ -11,6 +11,8 @@ length = 1
 segments = [snake.copy()]
 snake_dir = (0,0)
 time, time_step = 0, 110
+food = snake.copy()
+food.center = get_random_position()
 screen = pg.display.set_mode([WINDOW] * 2)
 clock = pg.time.Clock()
 
@@ -28,6 +30,8 @@ while True:
             if event.key == pg.K_d or event.key == pg.K_RIGHT:
                 snake_dir = (TILE_SIZE, 0)
     screen.fill('black')
+    # Draw food
+    pg.draw.rect(screen, "cyan", food)
     # Draw snake below
     [pg.draw.rect(screen, 'magenta', segment) for segment in segments]
     # Move snake and its segments. Then, control the speed by using timestep.
