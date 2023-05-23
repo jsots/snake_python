@@ -30,6 +30,15 @@ while True:
             if event.key == pg.K_d or event.key == pg.K_RIGHT:
                 snake_dir = (TILE_SIZE, 0)
     screen.fill('black')
+    # Check borders - make sure the player stays in bounds or else the game ends!
+    if snake.left < 0 or snake.right > WINDOW or snake.top < 0 or snake.bottom > WINDOW:
+        snake.center, food.center = get_random_position(), get_random_position()
+        length, snake_dir = 1, (0, 0)
+        segments = [snake.copy()]
+    # Create the interaction between the snake and the food. The snake should get bigger, and the food should change location.
+    if snake.center == food.center:
+        food.center = get_random_position()
+        length += 1
     # Draw food
     pg.draw.rect(screen, "cyan", food)
     # Draw snake below
