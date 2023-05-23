@@ -1,7 +1,7 @@
 import pygame as pg 
 from random import randrange
 
-WINDOW = 1000
+WINDOW = 800
 TILE_SIZE = 50
 RANGE = (TILE_SIZE // 2, WINDOW - TILE_SIZE // 2, TILE_SIZE)
 get_random_position = lambda: [randrange(*RANGE), randrange(*RANGE)]
@@ -22,16 +22,16 @@ while True:
         if event.type == pg.QUIT:
             exit()
         if event.type == pg.KEYDOWN:
-            if event.key == pg.K_w or event.key == pg.K_UP:
+            if (event.key == pg.K_w or event.key == pg.K_UP) and dirs[pg.K_w]:
                 snake_dir = (0, -TILE_SIZE)
                 dirs = {pg.K_w: 1, pg.K_s: 0, pg.K_a: 1, pg.K_d: 1, pg.K_UP: 1, pg.K_DOWN: 0, pg.K_LEFT: 1, pg.K_RIGHT: 1}
-            if event.key == pg.K_s or event.key == pg.K_DOWN:
+            if (event.key == pg.K_s or event.key == pg.K_DOWN) and dirs[pg.K_s]:
                 snake_dir = (0, TILE_SIZE)
                 dirs = {pg.K_w: 0, pg.K_s: 1, pg.K_a: 1, pg.K_d: 1, pg.K_UP: 0, pg.K_DOWN: 1, pg.K_LEFT: 1, pg.K_RIGHT: 1}
-            if event.key == pg.K_a or event.key == pg.K_LEFT:
+            if (event.key == pg.K_a or event.key == pg.K_LEFT) and dirs[pg.K_a]:
                 snake_dir = (-TILE_SIZE, 0)
                 dirs = {pg.K_w: 1, pg.K_s: 1, pg.K_a: 1, pg.K_d: 0, pg.K_UP: 1, pg.K_DOWN: 1, pg.K_LEFT: 1, pg.K_RIGHT: 0}
-            if event.key == pg.K_d or event.key == pg.K_RIGHT:
+            if (event.key == pg.K_d or event.key == pg.K_RIGHT) and dirs[pg.K_d]:
                 snake_dir = (TILE_SIZE, 0)
                 dirs = {pg.K_w: 1, pg.K_s: 1, pg.K_a: 0, pg.K_d: 1, pg.K_UP: 1, pg.K_DOWN: 1, pg.K_LEFT: 0, pg.K_RIGHT: 1}
     screen.fill('black')
